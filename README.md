@@ -28,7 +28,7 @@ This project is a simple math quiz game built using HTML, CSS, and JavaScript. U
 
 3.Extract the ZIP file to your preferred location.
 ```bash
-git clone (https://github.com/Jyrrel/Simple-Math-Solver)
+git clone (https://github.com/Jyrrel/Simple-Math-Solver.git)
 ```
 ## Running the Project
 
