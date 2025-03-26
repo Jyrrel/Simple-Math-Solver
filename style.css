@@ -140,3 +140,23 @@ button:hover {
     border-radius: 50%; /* Make it a circle */
     margin: 0 5px; /* Space between circles */
 }
+
+#motivationalVideo {
+    display: none; /* Initially hidden */
+    width: 600px; /* Set width for the video */
+    margin: 20px auto; /* Center the video */
+}
+
+#overallScores {
+    display: none; /* Initially hidden */
+    transition: max-height 0.5s ease; /* Smooth transition for height */
+    overflow: hidden; /* Hide overflow */
+    max-height: 0; /* Start collapsed */
+}
+
+#answersContainerHighScores {
+    display: none; /* Initially hidden */
+    transition: max-height 0.5s ease; /* Smooth transition for height */
+    overflow: hidden; /* Hide overflow */
+    max-height: 0; /* Start collapsed */
+}
