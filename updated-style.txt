@@ -1,0 +1,142 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #150016; /* Dark theme */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh; /* Full height of the viewport */
+    margin: 0; /* Remove default margin */
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#nameInputSection {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between buttons */
+}
+
+.difficulty-btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    background: #E386B1; /* Button background color */
+    border: none; /* No border */
+    color: white; /* Button text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners for buttons */
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Transition effects */
+}
+
+.difficulty-btn:hover {
+    background: #FFE3D8; /* Button background color on hover */
+    color: black; /* Button text color on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+    box-shadow: 0 4px 15px rgba(255, 155, 155, 0.5); /* Add a shadow effect on hover */
+}
+
+#highScores {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the table horizontally */
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background color */
+    padding: 20px; /* Padding around the content */
+    border-radius: 10px; /* Rounded corners */
+    width: 80%; /* Adjusted width for better layout */
+    margin: 0 auto; /* Center the container */
+}
+
+.score-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between left and right */
+    width: 100%; /* Full width */
+}
+
+.table-container {
+    flex: 1; /* Allow tables to grow equally */
+    margin: 0 10px; /* Space between tables */
+}
+
+table {
+    margin-top: 20px; /* Add some space above the table */
+    border-collapse: collapse; /* Collapse borders for a cleaner look */
+    width: 100%; /* Full width of the container */
+}
+
+th, td {
+    padding: 10px 15px; /* Add padding for better spacing */
+    border: 1px solid #E386B1; /* Border color */
+    text-align: center; /* Center text in cells */
+}
+
+th {
+    background-color: #E386B1; /* Header background color */
+    color: black; /* Header text color */
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05); /* Light background for even rows */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly darker background for odd rows */
+}
+
+.center-buttons {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px; /* Space above buttons */
+}
+
+button {
+    padding: 10px 20px; /* Button padding */
+    font-size: 18px; /* Button font size */
+    background: #E386B1; /* Button background color */
+    border: none; /* No border */
+    color: white; /* Button text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners for buttons */
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Transition effects */
+}
+
+button:hover {
+    background: #FFE3D8; /* Button background color on hover */
+    color: black; /* Button text color on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+    box-shadow: 0 4px 15px rgba(255, 155, 155, 0.5); /* Add a shadow effect on hover */
+}
+
+.correct-answer {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+}
+
+.wrong-answer {
+    background-color: #dc3545;
+    color: white;
+}
+
+.circle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* Make it a circle */
+    margin: 0 5px; /* Space between circles */
+}

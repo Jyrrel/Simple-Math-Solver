@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Problem Solver</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Math Problem Solver</h1>
+
+    <div id="nameInputSection">
+        <label for="playerName">Please Enter Your Name:</label>
+        <input type="text" id="playerName" placeholder="Enter your name">
+        <button id="nameSubmit">Next</button>
+    </div>
+
+    <div id="difficultySelection" style="display: none;">
+        <h2>Select Difficulty:</h2>
+        <div class="difficulty-buttons">
+            <button class="difficulty-btn" data-mode="easy">Easy</button>
+            <button class="difficulty-btn" data-mode="medium">Medium</button>
+            <button class="difficulty-btn" data-mode="hard">Hard</button>
+        </div>
+    </div>
+
+    <div id="gameSection" style="display: none;">
+        <h2>Difficulty: <span id="currentDifficulty"></span></h2>
+        <h3 id="questionTracker">Question 1/10</h3>
+        <h2 id="questionText">Question</h2>
+        <div id="answerChoices"></div>
+        <p id="timer">Time left: <span id="timeLeft">15</span>s</p>
+        <div class="center-buttons">
+            <button id="backButton">Back</button>
+        </div>
+    </div>
+
+    <div id="highScores" style="display: none;">
+        <h2>High Scores</h2>
+        <div class="score-container">
+            <div class="table-container">
+                <h2>Easy Rankings</h2>
+                <table>
+                    <tr><th>Rank</th><th>Name</th><th>Score</th></tr>
+                    <tbody id="easyScores"></tbody>
+                </table>
+            </div>
+            <div class="table-container">
+                <h2>Medium Rankings</h2>
+                <table>
+                    <tr><th>Rank</th><th>Name</th><th>Score</th></tr>
+                    <tbody id="mediumScores"></tbody>
+                </table>
+            </div>
+            <div class="table-container">
+                <h2>Hard Rankings</h2>
+                <table>
+                    <tr><th>Rank</th><th>Name</th><th>Score</th></tr>
+                    <tbody id="hardScores"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="center-buttons" style="margin-top: 20px;">
+            <button id="retry">Retry</button>
+            <button id="quit">Quit</button>
+            <button id="showAnswersHighScores">Show Your Answers</button>
+        </div>
+        <div id="answersContainerHighScores" style="display: none;"></div>
+        <h2 id="finalScore" style="display: none;"></h2> <!-- Final score display -->
+        <div id="answerCircles" style="display: none;"></div> <!-- Circles for correct/wrong answers -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
