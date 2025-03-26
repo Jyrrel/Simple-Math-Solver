@@ -61,15 +61,46 @@
             </div>
         </div>
         <div class="center-buttons" style="margin-top: 20px;">
-            <button id="retry">Retry</button>
-            <button id="quit">Quit</button>
-            <button id="showAnswersHighScores">Show Your Answers</button>
+            <div style="display: flex; justify-content: center; gap: 10px;">
+                <button id="retry">Retry</button>
+                <button id="quit">Quit</button>
+                <button id="showAnswersHighScores">Show Your Answers</button>
+                <button id="overallButton">Overall</button> <!-- Overall Button -->
+            </div>
         </div>
         <div id="answersContainerHighScores" style="display: none;"></div>
         <h2 id="finalScore" style="display: none;"></h2> <!-- Final score display -->
         <div id="answerCircles" style="display: none;"></div> <!-- Circles for correct/wrong answers -->
+        
+        <!-- Congratulations Section -->
+        <div id="congratulations" style="display: none;">
+            <h2>Congratulations, <span id="congratulationsName"></span>!</h2>
+            <p>You scored 10 out of 10!</p>
+            <button id="watchVideo">Click here to see the motivational video</button>
+        </div>
+
+        <!-- Nice Try Section -->
+        <div id="niceTry" style="display: none;">
+            <h2>Nice try, <span id="playerNameDisplay"></span>!</h2>
+            <p>You scored <span id="userScore"></span> out of 10.</p>
+        </div>
+
+        <!-- Overall Rankings Section -->
+        <div id="overallScores" style="display: none;">
+            <h2>Overall Rankings</h2>
+            <table>
+                <tr><th>Rank</th><th>Name</th><th>Total Score</th></tr>
+                <tbody id="overallScoresTable"></tbody>
+            </table>
+        </div>
     </div>
+
+    <video id="motivationalVideo" width="600" controls style="display: none;">
+        <source src="hola.mp4" type="video/mp4">
+    </video>
 
     <script src="script.js"></script>
 </body>
 </html>
+
+<!--jerry-->
