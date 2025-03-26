@@ -12,7 +12,7 @@ This project is a simple math quiz game built using HTML, CSS, and JavaScript. U
 
 * Built with JavaScript for dynamic functionality
 
-#Installation and Setup
+# Installation and Setup
 
 ## Prerequisites
 
