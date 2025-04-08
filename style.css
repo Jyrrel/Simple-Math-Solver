@@ -1,162 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    background: #001e4d;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+#homepage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    background: #150016; /* Dark theme */
     color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh; /* Full height of the viewport */
-    margin: 0; /* Remove default margin */
 }
 
-h1 {
-    margin-bottom: 20px;
+.welcome-title {
+    font-size: 32px;
+    margin-bottom: 40px;
 }
 
-#nameInputSection {
-    margin-bottom: 20px;
-}
-
-input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
-.difficulty-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* Space between buttons */
-}
-
-.difficulty-btn {
-    padding: 10px 20px;
+#start-quiz-btn {
+    background: #fff;
+    color: #001e4d;
     font-size: 18px;
-    background: #E386B1; /* Button background color */
-    border: none; /* No border */
-    color: white; /* Button text color */
-    cursor: pointer; /* Pointer cursor on hover */
-    border-radius: 5px; /* Rounded corners for buttons */
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Transition effects */
+    font-weight: 600;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
-.difficulty-btn:hover {
-    background: #FFE3D8; /* Button background color on hover */
-    color: black; /* Button text color on hover */
-    transform: scale(1.05); /* Slightly enlarge the button */
-    box-shadow: 0 4px 15px rgba(255, 155, 155, 0.5); /* Add a shadow effect on hover */
+#start-quiz-btn:hover {
+    background: #001e4d;
+    color: #fff;
+    border: 1px solid #fff;
 }
 
-#highScores {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center the table horizontally */
-    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background color */
-    padding: 20px; /* Padding around the content */
-    border-radius: 10px; /* Rounded corners */
-    width: 80%; /* Adjusted width for better layout */
-    margin: 0 auto; /* Center the container */
+.app {
+    background: #fff;
+    width: 90%;
+    max-width: 600px;
+    margin: 100px auto 0;
+    border-radius: 10px;
+    padding: 30px;
+    display: none;
 }
 
-.score-container {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space between left and right */
-    width: 100%; /* Full width */
+.app h1 {
+    font-size: 25px; 
+    font-weight: 600;
+    color: #001e4d;
+    border-bottom: 1px solid #333;
+    padding-bottom: 30px;
 }
 
-.table-container {
-    flex: 1; /* Allow tables to grow equally */
-    margin: 0 10px; /* Space between tables */
+.quiz {
+    padding: 20px 0;
 }
 
-table {
-    margin-top: 20px; /* Add some space above the table */
-    border-collapse: collapse; /* Collapse borders for a cleaner look */
-    width: 100%; /* Full width of the container */
+.quiz h2 {
+    font-size: 18px;
+    color: #001e4d;
+    font-weight: 600;
 }
 
-th, td {
-    padding: 10px 15px; /* Add padding for better spacing */
-    border: 1px solid #E386B1; /* Border color */
-    text-align: center; /* Center text in cells */
+.btn {
+    background: #fff;
+    color: #222;
+    font-weight: 500;
+    width: 100%;
+    border: 1px solid #222;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: left;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
-th {
-    background-color: #E386B1; /* Header background color */
-    color: black; /* Header text color */
+.btn:hover:not([disabled]) {
+    background: #222;
+    color: #fff;
 }
 
-tbody tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.05); /* Light background for even rows */
+.btn:disabled {
+    cursor: no-drop;
 }
 
-tbody tr:nth-child(odd) {
-    background-color: rgba(255, 255, 255, 0.1); /* Slightly darker background for odd rows */
+#next-btn {
+    background: #001e4d;
+    color: #fff;
+    font-weight: 500;
+    width: 150px;
+    border: 0;
+    padding: 10px;
+    margin: 20px auto 0;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
 }
 
-.center-buttons {
-    display: flex;
-    justify-content: center; /* Center the buttons */
-    gap: 20px; /* Space between buttons */
-    margin-top: 20px; /* Space above buttons */
+.correct {
+    background: #9aeabc;
 }
 
-button {
-    padding: 10px 20px; /* Button padding */
-    font-size: 18px; /* Button font size */
-    background: #E386B1; /* Button background color */
-    border: none; /* No border */
-    color: white; /* Button text color */
-    cursor: pointer; /* Pointer cursor on hover */
-    border-radius: 5px; /* Rounded corners for buttons */
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Transition effects */
+.incorrect {
+    background: #ff9393;
 }
 
-button:hover {
-    background: #FFE3D8; /* Button background color on hover */
-    color: black; /* Button text color on hover */
-    transform: scale(1.05); /* Slightly enlarge the button */
-    box-shadow: 0 4px 15px rgba(255, 155, 155, 0.5); /* Add a shadow effect on hover */
+.footer {
+    background-color: #ffffff;
+    color: #001e4d;
+    text-align: center;
+    padding: 30px 20px;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: auto; 
 }
 
-.correct-answer {
-    background-color: #28a745;
-    color: white;
-    font-weight: bold;
+.footer-content {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.wrong-answer {
-    background-color: #dc3545;
-    color: white;
+.footer-toggle {
+    background-color: #001e4d;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s, color 0.3s;
 }
 
-.circle {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%; /* Make it a circle */
-    margin: 0 5px; /* Space between circles */
+.footer-toggle:hover {
+    background-color: #ffffff;
+    color: #001e4d;
+    border: 1px solid #001e4d;
 }
 
-#motivationalVideo {
-    display: none; /* Initially hidden */
-    width: 600px; /* Set width for the video */
-    margin: 20px auto; /* Center the video */
-}
-
-#overallScores {
-    display: none; /* Initially hidden */
-    transition: max-height 0.5s ease; /* Smooth transition for height */
-    overflow: hidden; /* Hide overflow */
-    max-height: 0; /* Start collapsed */
-}
-
-#answersContainerHighScores {
-    display: none; /* Initially hidden */
-    transition: max-height 0.5s ease; /* Smooth transition for height */
-    overflow: hidden; /* Hide overflow */
-    max-height: 0; /* Start collapsed */
+.footer-section {
+    display: none;
+    margin-top: 10px;
+    font-size: 14px;
 }
