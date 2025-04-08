@@ -3,104 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Problem Solver</title>
+    <title>Basic Math Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Math Problem Solver</h1>
-
-    <div id="nameInputSection">
-        <label for="playerName">Please Enter Your Name:</label>
-        <input type="text" id="playerName" placeholder="Enter your name">
-        <button id="nameSubmit">Next</button>
+    <div id="homepage">
+        <h1 class="welcome-title">Welcome to Basic Math Quiz!</h1>
+        <button id="start-quiz-btn">Enter Quiz</button>
     </div>
-
-    <div id="difficultySelection" style="display: none;">
-        <h2>Select Difficulty:</h2>
-        <div class="difficulty-buttons">
-            <button class="difficulty-btn" data-mode="easy">Easy</button>
-            <button class="difficulty-btn" data-mode="medium">Medium</button>
-            <button class="difficulty-btn" data-mode="hard">Hard</button>
-        </div>
-    </div>
-
-    <div id="gameSection" style="display: none;">
-        <h2>Difficulty: <span id="currentDifficulty"></span></h2>
-        <h3 id="questionTracker">Question 1/10</h3>
-        <h2 id="questionText">Question</h2>
-        <div id="answerChoices"></div>
-        <p id="timer">Time left: <span id="timeLeft">15</span>s</p>
-        <div class="center-buttons">
-            <button id="backButton">Back</button>
+    <div class="app">
+        <h1>Simple Quiz</h1>
+        <div class="quiz">
+            <h2 id="question">Question goes here</h2>
+            <div id="answer-buttons">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+            <button id="next-btn">Next</button>
         </div>
     </div>
-
-    <div id="highScores" style="display: none;">
-        <h2>High Scores</h2>
-        <div class="score-container">
-            <div class="table-container">
-                <h2>Easy Rankings</h2>
-                <table>
-                    <tr><th>Rank</th><th>Name</th><th>Score</th></tr>
-                    <tbody id="easyScores"></tbody>
-                </table>
+    <footer class="footer">
+        <div class="footer-content">
+            <button class="footer-toggle" data-toggle="about-section">About Us</button>
+            <div id="about-section" class="footer-section">
+                <p>We’re a small team passionate about helping kids practice basic math skills in a fun and simple way.</p>
             </div>
-            <div class="table-container">
-                <h2>Medium Rankings</h2>
-                <table>
-                    <tr><th>Rank</th><th>Name</th><th>Score</th></tr>
-                    <tbody id="mediumScores"></tbody>
-                </table>
-            </div>
-            <div class="table-container">
-                <h2>Hard Rankings</h2>
-                <table>
-                    <tr><th>Rank</th><th>Name</th><th>Score</th></tr>
-                    <tbody id="hardScores"></tbody>
-                </table>
+    
+            <button class="footer-toggle" data-toggle="contact-section">Contact Info</button>
+            <div id="contact-section" class="footer-section">
+                <p>Email: basicmathquiz@example.com</p>
+                <p>Phone: (123) 456-7890</p>
             </div>
         </div>
-        <div class="center-buttons" style="margin-top: 20px;">
-            <div style="display: flex; justify-content: center; gap: 10px;">
-                <button id="retry">Retry</button>
-                <button id="quit">Quit</button>
-                <button id="showAnswersHighScores">Show Your Answers</button>
-                <button id="overallButton">Overall</button> <!-- Overall Button -->
-            </div>
-        </div>
-        <div id="answersContainerHighScores" style="display: none;"></div>
-        <h2 id="finalScore" style="display: none;"></h2> <!-- Final score display -->
-        <div id="answerCircles" style="display: none;"></div> <!-- Circles for correct/wrong answers -->
-        
-        <!-- Congratulations Section -->
-        <div id="congratulations" style="display: none;">
-            <h2>Congratulations, <span id="congratulationsName"></span>!</h2>
-            <p>You scored 10 out of 10!</p>
-            <button id="watchVideo">Click here to see the motivational video</button>
-        </div>
-
-        <!-- Nice Try Section -->
-        <div id="niceTry" style="display: none;">
-            <h2>Nice try, <span id="playerNameDisplay"></span>!</h2>
-            <p>You scored <span id="userScore"></span> out of 10.</p>
-        </div>
-
-        <!-- Overall Rankings Section -->
-        <div id="overallScores" style="display: none;">
-            <h2>Overall Rankings</h2>
-            <table>
-                <tr><th>Rank</th><th>Name</th><th>Total Score</th></tr>
-                <tbody id="overallScoresTable"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <video id="motivationalVideo" width="600" controls style="display: none;">
-        <source src="hola.mp4" type="video/mp4">
-    </video>
-
+    </footer> 
     <script src="script.js"></script>
+    <script>
+        document.getElementById("start-quiz-btn").addEventListener("click", function () {
+          document.getElementById("footer").style.display = "none";
+        });
+      </script>
 </body>
 </html>
-
-<!--jerry-->
