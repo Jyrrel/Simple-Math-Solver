@@ -1,254 +1,164 @@
-let playerName = "", score = 0, questionIndex = 0, timeLeft = 15, timer, currentDifficulty = "";
-let playerScores = { easy: [], medium: [], hard: [] }, questionsAnswered = [];
+const questions = [
+    {
+        question: '5 + 5 = ?',
+        answers: [
+            {text: '15', correct: false},
+            {text: '10', correct: true},
+            {text: '25', correct: false},
+            {text: '5', correct: false},
+        ]
+    },
+    {
+        question: '3 x 3 = ?',
+        answers: [
+            {text: '6', correct: false},
+            {text: '12', correct: false},
+            {text: '15', correct: false},
+            {text: '9', correct: true},
+        ]
+    },
+    {
+        question: '2 x 4 = ?',
+        answers: [
+            {text: '8', correct: true},
+            {text: '6', correct: false},
+            {text: '16', correct: false},
+            {text: '21', correct: false},
+        ]
+    },
+    {
+        question: '10 x 3 = ?',
+        answers: [
+            {text: '20', correct: false},
+            {text: '13', correct: false},
+            {text: '30', correct: true},
+            {text: '15', correct: false},
+        ]
+    },
+    {
+        question: '20 - 7 = ?',
+        answers: [
+            {text: '13', correct: true},
+            {text: '12', correct: false},
+            {text: '18', correct: false},
+            {text: '14', correct: false},
+        ]
+    }
+];
 
-// Load and save scores to local storage
-const loadScores = () => {
-    const storedScores = localStorage.getItem("playerScores");
-    if (storedScores) playerScores = JSON.parse(storedScores);
-};
+const questionElement = document.getElementById('question'); 
+const answerButtons = document.getElementById('answer-buttons');
+const nextButton = document.getElementById('next-btn');
+const homepage = document.getElementById('homepage');
+const quizApp = document.querySelector('.app');
+const startQuizBtn = document.getElementById('start-quiz-btn');
 
-const saveScores = () => {
-    localStorage.setItem("playerScores", JSON.stringify(playerScores));
-};
+let currentQuestionIndex = 0;
+let score = 0;
 
-// Load scores on page load
-loadScores();
+quizApp.style.display = 'none';
 
-// Handle name submission
-const handleNameSubmit = () => {
-    playerName = document.getElementById("playerName").value.trim();
-    if (!playerName) return alert("Please enter your name first.");
-    document.getElementById("nameInputSection").style.display = "none";
-    document.getElementById("difficultySelection").style.display = "block";
-};
+function startQuiz(){
+    currentQuestionIndex = 0;
+    score = 0;
+    nextButton.innerHTML = 'Next';
+    showQuestion();
+}
 
-// Handle difficulty selection
-const handleDifficultySelection = (difficulty) => {
-    currentDifficulty = difficulty;
-    startGame();
-};
+function showQuestion(){
+    resetState();
+    let currentQuestion = questions[currentQuestionIndex];
+    let questionNo = currentQuestionIndex + 1;
+    questionElement.innerHTML = questionNo + '. ' + currentQuestion.question;
 
-// Event listeners
-document.getElementById("nameSubmit").addEventListener("click", handleNameSubmit);
-document.getElementById("playerName").addEventListener("keydown", (e) => e.key === "Enter" && handleNameSubmit());
-document.querySelectorAll(".difficulty-btn").forEach(btn => {
-    btn.addEventListener("click", () => handleDifficultySelection(btn.getAttribute("data-mode")));
-});
-
-// Start the game
-const startGame = () => {
-    document.getElementById("difficultySelection").style.display = "none";
-    document.getElementById("gameSection").style.display = "block";
-    score = questionIndex = 0;
-    questionsAnswered = [];
-    generateQuestion();
-};
-
-// Generate a question
-const generateQuestion = () => {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
-    const operations = {
-        easy: { answer: num1 + num2, text: `${num1} + ${num2} = ?` },
-        medium: { answer: num1 * num2, text: `${num1} × ${num2} = ?` },
-        hard: { answer: Math.pow(num1, 2) - num2, text: `${num1}² - ${num2} = ?` }
-    };
-    const { answer, text } = operations[currentDifficulty];
-    document.getElementById("questionText").innerText = text;
-    document.getElementById("questionTracker").innerText = `Question ${questionIndex + 1}/10`;
-
-    const choices = [answer, answer + 1, answer - 1, answer + 2].sort(() => Math.random() - 0.5);
-    const answerContainer = document.getElementById("answerChoices");
-    answerContainer.innerHTML = "";
-
-    choices.forEach(choice => {
-        const btn = document.createElement("button");
-        btn.innerText = choice;
-        btn.className = "answer-btn";
-        btn.onclick = () => checkAnswer(btn, answer);
-        answerContainer.appendChild(btn);
-    });
-
-    resetTimer(answer);
-};
-
-// Check the answer
-const checkAnswer = (selectedBtn, correctAnswer) => {
-    if (parseInt(selectedBtn.innerText) === correctAnswer) score++;
-    questionsAnswered.push({ question: document.getElementById("questionText").innerText, correctAnswer, selectedAnswer: selectedBtn.innerText });
-    questionIndex++;
-    questionIndex < 10 ? generateQuestion() : endGame();
-};
-
-// Reset timer
-const resetTimer = (correctAnswer) => {
-    clearInterval(timer);
-    timeLeft = 15;
-    document.getElementById("timeLeft").innerText = timeLeft;
-
-    timer = setInterval(() => {
-        if (--timeLeft <= 0) {
-            clearInterval(timer);
-            questionsAnswered.push({ question: document.getElementById("questionText").innerText, correctAnswer, selectedAnswer: "No Answer" });
-            questionIndex++;
-            questionIndex < 10 ? generateQuestion() : endGame();
+    currentQuestion.answers.forEach(answer => {
+        const button = document.createElement('button');
+        button.innerHTML = answer.text;
+        button.classList.add('btn');
+        answerButtons.appendChild(button);
+        if(answer.correct){
+            button.dataset.correct = answer.correct;
         }
-        document.getElementById("timeLeft").innerText = timeLeft;
-    }, 1000);
-};
-
-// End game
-const endGame = () => {
-    clearInterval(timer);
-    document.getElementById("gameSection").style.display = "none";
-    document.getElementById("highScores").style.display = "block";
-    document.querySelectorAll(".answer-btn").forEach(btn => btn.disabled = true);
-    addPlayerScore(playerName, score, currentDifficulty);
-    displayFinalScore();
-
-    if (score === 10) {
-        document.getElementById("congratulations").style.display = "block";
-        document.getElementById("congratulationsName").innerText = playerName; // Display player name in congratulations
-    } else {
-        document.getElementById("niceTry").style.display = "block";
-        document.getElementById("userScore").innerText = score;
-        document.getElementById("playerNameDisplay").innerText = playerName; // Display player name in nice try
-    }
-};
-
-// Add player score
-const addPlayerScore = (name, score, difficulty) => {
-    playerScores[difficulty].push({ name, score });
-    saveScores();
-    updateRankings();
-};
-
-// Update rankings
-const updateRankings = () => {
-    for (let difficulty in playerScores) {
-        playerScores[difficulty].sort((a, b) => b.score - a.score);
-    }
-    displayRankings();
-};
-
-// Display rankings
-const displayRankings = () => {
-    ["easy", "medium", "hard"].forEach(difficulty => {
-        const tableBody = document.getElementById(`${difficulty}Scores`);
-        tableBody.innerHTML = "";
-        playerScores[difficulty].forEach((player, index) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `<td>${index + 1}</td><td>${player.name}</td><td>${player.score}</td>`;
-            tableBody.appendChild(row);
-        });
+        button.addEventListener('click', selectAnswer);
     });
-};
+}
 
-// Show/hide answers
-document.getElementById("showAnswersHighScores").addEventListener("click", () => {
-    const resultContainer = document.getElementById("answersContainerHighScores");
-    if (resultContainer.style.display === "none" || resultContainer.style.maxHeight === "0px") {
-        resultContainer.style.display = "block";
-        resultContainer.style.maxHeight = "500px"; // Set a max height for the animation
-        resultContainer.innerHTML = "<h3>Your Answers</h3>"; // Clear previous content
-        questionsAnswered.forEach((q, index) => {
-            resultContainer.innerHTML += `<strong>Q${index + 1}:</strong> ${q.question} <br>
-                Your Answer: <span style="color: ${q.selectedAnswer === "No Answer" ? 'gray' : (q.selectedAnswer == q.correctAnswer ? 'green' : 'red')}">${q.selectedAnswer}</span> 
-                <br> Correct Answer: <span style="font-weight: bold; color: green">${q.correctAnswer}</span><br>`;
-        });
-    } else {
-        resultContainer.style.maxHeight = "0"; // Collapse the section
-        setTimeout(() => {
-            resultContainer.style.display = "none"; // Hide after animation
-        }, 500); // Match this duration with the CSS transition duration
-    }
+startQuizBtn.addEventListener('click', () => {
+    homepage.style.display = 'none';
+    quizApp.style.display = 'block';
+    document.getElementById('footer').style.display = 'none';
+    startQuiz();
 });
 
-// Display final score
-const displayFinalScore = () => {
-    const finalScoreElement = document.getElementById("finalScore");
-    finalScoreElement.innerText = `You've scored ${score} out of 10`;
-    finalScoreElement.style.display = "block";
+function resetState(){
+    nextButton.style.display = 'none';
+    while(answerButtons.firstChild){
+        answerButtons.removeChild(answerButtons.firstChild);
+    }
+}   
 
-    const answerCircles = document.getElementById("answerCircles");
-    answerCircles.innerHTML = "";
-    questionsAnswered.forEach(q => {
-        const circle = document.createElement("div");
-        circle.className = "circle";
-        circle.style.backgroundColor = q.selectedAnswer == q.correctAnswer ? "#28a745" : (q.selectedAnswer === "No Answer" ? "gray" : "#dc3545");
-        answerCircles.appendChild(circle);
+function selectAnswer(e){
+    const selectedBtn = e.target;
+    const isCorrect = selectedBtn.dataset.correct === 'true';
+    if(isCorrect){
+        selectedBtn.classList.add('correct');
+        score++;
+    }else{
+        selectedBtn.classList.add('incorrect');
+    }
+
+    Array.from(answerButtons.children).forEach(button => {
+        if(button.dataset.correct === 'true'){
+            button.classList.add('correct');
+        }
+        button.disabled = true;
     });
-    answerCircles.style.display = "block";
-};
 
-// Overall Rankings Button
-document.getElementById("overallButton").addEventListener("click", () => {
-    const overallScoresSection = document.getElementById("overallScores");
-    if (overallScoresSection.style.display === "none") {
-        overallScoresSection.style.display = "block";
-        overallScoresSection.style.maxHeight = "500px"; // Set a max height for the animation
+    // Show "Next" or "Show Score" depending on question index
+    if (currentQuestionIndex < questions.length - 1) {
+        nextButton.innerHTML = 'Next';
+        nextButton.style.display = 'block';
     } else {
-        overallScoresSection.style.maxHeight = "0"; // Collapse the section
-        setTimeout(() => {
-            overallScoresSection.style.display = "none"; // Hide after animation
-        }, 500); // Match this duration with the CSS transition duration
+        nextButton.innerHTML = 'Show Score';
+        nextButton.style.display = 'block';
     }
+}
 
-    const overallScoresTable = document.getElementById("overallScoresTable");
-    overallScoresTable.innerHTML = "";
-    const overallScores = [];
+function showScore(){
+    resetState();
+    questionElement.innerHTML = `You Scored ${score} out of ${questions.length}!`;
+    nextButton.innerHTML = 'Play Again';
+    nextButton.style.display = 'block';
+    currentQuestionIndex = -1; // Reset for play again
+}
 
-    // Combine scores from all difficulties
-    for (let difficulty in playerScores) {
-        playerScores[difficulty].forEach(player => {
-            const existingPlayer = overallScores.find(p => p.name === player.name);
-            if (existingPlayer) {
-                existingPlayer.score += player.score; // Combine scores
-            } else {
-                overallScores.push({ name: player.name, score: player.score });
-            }
-        });
+function handleNextButton(){
+    currentQuestionIndex++;
+    if(currentQuestionIndex < questions.length){
+        showQuestion();
+    }else{
+        showScore();
     }
+}
 
-    // Sort overall scores
-    overallScores.sort((a, b) => b.score - a.score);
-    overallScores.forEach((player, index) => {
-        overallScoresTable.innerHTML += `<tr><td>${index + 1}</td><td>${player.name}</td><td>${player.score}</td></tr>`;
+nextButton.addEventListener('click', () => {
+    handleNextButton();
+});
+
+function toggleSection(id) {
+    const section = document.getElementById(id);
+    section.style.display = section.style.display === 'block' ? 'none' : 'block';
+}
+
+document.querySelectorAll('.footer-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+        const sectionId = button.getAttribute('data-toggle');
+        const section = document.getElementById(sectionId);
+        if (section) {
+            const isVisible = section.style.display === 'block';
+            section.style.display = isVisible ? 'none' : 'block';
+        }
     });
 });
 
-// Back Button
-document.getElementById("backButton").addEventListener("click", () => {
-    document.getElementById("gameSection").style.display = "none";
-    document.getElementById("difficultySelection").style.display = "block";
-});
-
-// Retry Button
-document.getElementById("retry").addEventListener("click", () => {
-    document.getElementById("highScores").style.display = "none";
-    document.getElementById("difficultySelection").style.display = "block";
-    document.getElementById("motivationalVideo").style.display = "none";
-    document.getElementById("congratulations").style.display = "none";
-    document.getElementById("niceTry").style.display = "none";
-});
-
-// Quit Button
-document.getElementById("quit").addEventListener("click", () => {
-    document.getElementById("highScores").style.display = "none";
-    document.getElementById("nameInputSection").style.display = "block";
-    document.getElementById("motivationalVideo").style.display = "none";
-    document.getElementById("congratulations").style.display = "none";
-    document.getElementById("niceTry").style.display = "none";
-});
-
-// Watch Video Button
-document.getElementById("watchVideo").addEventListener("click", () => {
-    const video = document.getElementById("motivationalVideo");
-    if (video.style.display === "none") {
-        video.style.display = "block";
-        video.play();
-    } else {
-        video.style.display = "none";
-        video.pause();
-    }
-});
+startQuiz();
